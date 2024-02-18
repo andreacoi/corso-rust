@@ -44,6 +44,16 @@ fn main() {
 
     let sliced = slicer(&s);
     println!("{}", sliced);
+    // resta beninteso che gli slice possono essere composti anche da numeri, come in questo caso:
+    let a = [1,2,3,4,5];
+    // ovviamente è possibile accedervi in questo modo, specificando index_iniziale e index_finale
+    // saranno utili più in avanti parlando dei vettori.
+    let slice = &a[1..3];
+    // come da documentazione - non l'ho capita
+    assert_eq!(slice, &[2, 3]);
+    // le stringhe letterali sono anche un tipo di slice ed è per questo che sono immutabili. In
+    // alcuni casi sono anche più facili da trattare per via della dichiarazione immediata che li
+    // caratterizza.
 }
 // imposto funzione che ritorna una parte di una stringa attraverso il tipo slice. Il tipo slice si
 // dichiara, come si può vedere in basso come &str.

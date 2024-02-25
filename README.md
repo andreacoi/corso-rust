@@ -29,3 +29,7 @@ Dato il tipo di sintassi utilizzata e specificata nel paragrafo _Nomenclatura e 
 ## Conclusioni e appunti futuri
 
 Se dovessi avere ulteriori appunti durante la fase di apprendimento li riporterò in questo file LEGGIMI. Visto che il repo è pubblico vi prego di essere clementi con il mio modo di scrivere codice RUST (i'm a n00b) e di esserlo ancor di più con la grammatica nei commenti.
+
+## Edits
+
+In data 25/02/24 ho eseguito una revisione nell'organizzazione dei capitoli e dei paragrafi avendo cura di farli corrispondere.

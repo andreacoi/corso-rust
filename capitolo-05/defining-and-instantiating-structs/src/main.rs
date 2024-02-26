@@ -47,4 +47,22 @@ fn main() {
         }
     }
     let user3 = crea_utente(String::from("Pino"), String::from("email"));
+
+    // Utilizzando la sintassi STRUCT UPDATE è possibile prendere i valori da un'altra struct già
+    // istanziata.
+    //
+    let user4 = User {
+        active: user2.active,
+        username: user1.username,
+        email: String::from("mysecretmail@mail.com"),
+        password: String::from("password"),
+    };
+    // è possibile scrivere user5 in questo modo (se il campo da variare è solo uno)
+
+    let user5 = User {
+        email: String::from("mymail"),
+        // sintassi per copiare i gli altri valori restanti dall'altra istanza user3.
+        // ATTENZIONE! Questo tipo di scorciatoia VA DICHIARATA SEMPRE PER ULTIMA.
+        ..user3
+    };
 }

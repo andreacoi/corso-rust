@@ -29,3 +29,22 @@ fn main() {
 fn area(dimensions: (u32, u32)) -> u32 {
     dimensions.0 * dimensions.1
 } */
+
+// REFACTORING CON LE STRUCT - VERSIONE 0.3
+
+fn main() {
+    let rettangolo = Rettangolo {
+        width: 50,
+        height: 30,
+    };
+    println!("L'area del rettangolo è: {}", area(&rettangolo));
+}
+
+fn area(rettangolo: &Rettangolo) -> u32 {
+    rettangolo.width * rettangolo.height
+}
+
+struct Rettangolo {
+    width: u32,
+    height: u32,
+}

@@ -65,4 +65,24 @@ fn main() {
         // ATTENZIONE! Questo tipo di scorciatoia VA DICHIARATA SEMPRE PER ULTIMA.
         ..user3
     };
+    // tuple struct
+    // è possibile definire delle struct che somigliano a delle tuple. Come struttura sono
+    // identiche a una tupla, con l'eccezione che hanno un nome.
+    // Le struct tuple non hanno nomi dei campi ma occorre dichiararne il tipo, in questo modo:
+    struct Color(i32, i32, i32);
+    struct Point(i32, i32, i32);
+
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 1, 2);
+    // IMPORTANTE!
+    // le variabili black e origin SONO DI TIPO DIFFERENTE PERCHÈ SONO ISTANZE DI DUE STRUCT
+    // DIVERSE. pag.89
+    //
+    // # Unit-like structs - Le struct "vuote", senza campi.
+    // è possibile dichiarare delle struct vuote, senza campi. Sono utili quando si implementano
+    // dei trait senza dati da immagazzinare.
+
+    struct AlwaysEqual;
+
+    let subject = AlwaysEqual;
 }

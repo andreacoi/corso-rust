@@ -37,6 +37,29 @@ fn main() {
         width: 50,
         height: 30,
     };
+    // ammettiamo di voler visualizzare i dati del rettangolo in questione prima di eseguire il
+    // calcolo dell'area. Questo può essere utile per dare delle informazioni all'utente che
+    // utilizza il programma.
+    // Ma come stampare una STRUCT?
+    // Tutti i tipi primitivi implementano il metodo Display (std::fmt::Display) perché tutti i
+    // tipi primitivi hanno un solo modo di essere visualizzati. Le struct invece possono essere
+    // stampate in diversi modi: con le parentesi, senza, con le virgole, con tutti i campi o solo
+    // con alcuni. Pertanto, utilizzare la macro println! produce un errore in fase di
+    // compilazione.
+    // Rust, infatti, non prova ad indovinare COME comportarsi quando si tratta di stampare la
+    // struct.
+    // Come possiamo fare? Fortunatamente possiamo usare questa formattazione:
+    //
+    // println!("Dettagli rettangolo: {:?}", rettangolo);
+    //
+    // Questo tipo di sintassi utilizza un tipo di sintassi in output chiamato Debug. Il trait
+    // Debug è utile per stampare la nostra struct in un modo chiaro per gli sviluppatori, mentre
+    // si esegue il debug del nostro codice.
+    // Per abilitare lo specificatore :? è necessario dichiarare l'attributo esterno #[derive(Debug)] APPENA PRIMA DELLA DEFINIZIONE DELLA STRUCT.
+    // N.B. Lo specificatore può essere dichiarato anche con l'hashbang per permettere una migliore leggibilità e formattazione.
+    // Es. {:#?}
+    //
+    println!("Dettagli rettangolo: {:?}", rettangolo);
     println!("L'area del rettangolo è: {}", area(&rettangolo));
 }
 
@@ -44,6 +67,7 @@ fn area(rettangolo: &Rettangolo) -> u32 {
     rettangolo.width * rettangolo.height
 }
 
+#[derive(Debug)]
 struct Rettangolo {
     width: u32,
     height: u32,

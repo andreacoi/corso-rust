@@ -1,3 +1,4 @@
+use rand::Rng;
 // Il costrutto match è uno dei più potenti costrutti di RUST per il controllo del flusso.
 // Permette di confrontare dei valori con una serie di pattern.
 //
@@ -60,6 +61,7 @@ fn main() {
     let five = Some(5);
     let six = aggiungi_uno(five);
     println!("Valore di six: {:?}", six);
+    roll_game();
 }
 
 // Nota per Option<T> per capirla meglio:
@@ -69,3 +71,27 @@ fn main() {
 // I match in RUST sono ESAUSTIVI:
 // BISOGNA PREVEDERE TUTTE LE POSSIBILITÀ OFFFERTE PER RENDERE IL CODICE VALIDO. Fortunatamente RUST ci avvisa e sa come comportarsi in fase di compilazione.
 // Questa regola è ancor più valida in casi come Option<T>, DOVE NON POSSIAMO ASSOLUTAMENTE LASCIARE "APERTA" LA POSSIBILITÀ DI RISCONTRARE UN "NONE" non previsto.
+
+// ## Catch-all patterns e _ Placeholder
+// Rust ha un tipo di match molto particolare. Utilizzando la parola chiave _ in un bracket
+// match è possibile specificare delle condizioni valide per tutte le altre casistiche non
+// specificate nei primi pochi casi.
+// Es. immaginiamo di costruire un giochino con i dadi che ci da un piccolo premio se il risultato
+// del lancio è 5, un grande premio se è 12 e ci costringe a rilanciare qualora il numero non sia
+// uno di qusti due.
+fn roll_game() {
+    let dice_roll = lanciatore_dadi();
+    println!("Lancio...");
+    println!("Lanciando due dadi ho ottenuto: {}", dice_roll);
+    match dice_roll {
+        5 => println!("Piccolo Premio"),
+        12 => println!("The big one"),
+        _ => roll_game(),
+    }
+}
+
+fn lanciatore_dadi() -> u8 {
+    let mut constr = rand::thread_rng();
+    let t: u8 = constr.gen_range(1..13);
+    t
+}

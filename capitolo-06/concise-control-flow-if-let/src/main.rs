@@ -14,4 +14,11 @@ fn main() {
     if let Some(max) = config_max {
         print!("Il massimo è {}", max);
     }
+    // Utilizzare if let significa avere un codice più pulito, meno indentazione. Ovviamente, di
+    // contro, si va a perdere tutto il livello di vincoli e precisione del codice dettato dal
+    // costrutto match. Allo stesso modo, utilizzando if let perdiamo il controllo cavilloso
+    // prerogativa del costrutto match.
+    //
+    // QUANDO USARE IF LET E QUANDO USARE MATCH.
+    //
 }

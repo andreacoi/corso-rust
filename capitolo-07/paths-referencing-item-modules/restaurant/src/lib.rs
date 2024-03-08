@@ -14,15 +14,26 @@ mod frontend_ristorante {
     }
 }
 
-mod backend_ristorante {}
+fn valida_prenotazione() {}
 
-pub fn mangia_al_ristorante() {
-    // esempio di path assoluto
-    crate::frontend_ristorante::accoglienza::accogli_clientela();
-    // esempio di path relativo
-    frontend_ristorante::accoglienza::accogli_clientela();
+mod backend_ristorante {
+
+    pub fn mangia_al_ristorante() {
+        // esempio di path assoluto
+        crate::frontend_ristorante::accoglienza::accogli_clientela();
+        // esempio di path relativo
+        frontend_ristorante::accoglienza::accogli_clientela();
+
+        // La parola chiave SUPER e il suo utilizzo nei path relativi.
+        // super funziona come "cd ..", consente di far riferimento ad un elemento in un "modulo padre"
+        // Es. Se avessi bisogno di accedere, da qui, alla funzione valida_prenotazione()
+        // potrei farlo in questo modo:
+        //
+        super::valida_prenotazione()
+    }
 }
 
 // In Rust tutti gli elementi sono private nei confronti dei loro genitori. L'elemento child,
 // invece può sempre accedere al suo elemento parent.
 // Attenzione però! RENDERE UN MODULO PUBBLICO NON NE RENDE PUBBLICI I SUOI ELEMENTI!
+//

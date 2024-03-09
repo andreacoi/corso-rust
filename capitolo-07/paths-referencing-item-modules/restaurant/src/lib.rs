@@ -37,3 +37,48 @@ mod backend_ristorante {
 // invece può sempre accedere al suo elemento parent.
 // Attenzione però! RENDERE UN MODULO PUBBLICO NON NE RENDE PUBBLICI I SUOI ELEMENTI!
 //
+// Provo a riprodurre esempio a pagina 131.
+//
+// parte backoffice ristorante
+mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+    // dopo aver dichiarato la struct come pub. la struct diventa pubblica. Lo stesso vale per
+    // toast.
+    // Essendo "seasonal_fruit" privato, occorre una funzione associata per eseguire la costruzione
+    // e la manipolazione dei campi della struct.
+    // FUNZIONE ASSOCIATA (impl)
+    impl Breakfast {
+        // creo una funzione per capire quali sono i frutti stagionali (estivi).
+        // toast è un puntatore al valore toast e ritorna la struct Breakfast
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                // dichiaro seasonal_fruit
+                seasonal_fruit: String::from("Pesche"),
+            }
+        }
+    }
+}
+
+pub fn eat_at_restaurant() {
+    let mut meal = back_of_house::Breakfast::summer("Toast con Farina d'avena");
+    // dopo l'inizializzazione di meal ho finalmente la mia colazione estiva completa.
+    // meal quindi diventa una struct così composta:
+    // meal {
+    //  toast: "Toast con Farina d'avena",
+    //  seasonal_fruit: "Pesche",
+    // }
+    // avendo dichiarato meal come mut posso anche eseguire un'operazione di questo tipo:
+    meal.toast = String::from("Toast al profumo di chanel");
+    // questa nuova associazione di una nuova stringa a meal.toast può essere vista come "un cambio
+    // di idea da parte del cliente".
+    // Un tentativo di modifica di "seasonal_fruit" causerebbe un errore in fase di compilazione
+    // perché il campo della struct non è pubblico.
+    // Per modificare seasonal_fruit è obbligatorio REINIZIALIZZARE Breakfast, chiamando summer()
+    // con il suo argomento.
+    // Esempio di un eventuale errore in fase di compilazione:
+    // meal.seasonal_fruit = String::from("blueberries")
+}

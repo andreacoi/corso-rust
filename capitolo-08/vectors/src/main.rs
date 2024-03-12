@@ -14,4 +14,12 @@ fn main() {
     // capire che ci troviamo davanti a un vettore probabilmente <i32>.
     // Altre note
     // Nelle virgolette a spina di pesce possiamo specificare qualsiasi tipo.
+    //
+    // # Aggiornare un vettore
+    // Per aggiornare un vettore è possibile utilizzare il metodo push. Anche per il metodo push
+    // vale la regola dell'inferenza e anche i vettori devono essere dichiarati mut per poter
+    // essere variati. Esempio di creazione e aggiornamento di un vettore.
+    let mut v3: Vec<i32> = Vec::new();
+    v3.push(1);
+    // # Leggere elementi di un vettore <-- TODO: Studiare paragrafo 8.1.3
 }

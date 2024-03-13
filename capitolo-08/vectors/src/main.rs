@@ -19,7 +19,41 @@ fn main() {
     // Per aggiornare un vettore è possibile utilizzare il metodo push. Anche per il metodo push
     // vale la regola dell'inferenza e anche i vettori devono essere dichiarati mut per poter
     // essere variati. Esempio di creazione e aggiornamento di un vettore.
-    let mut v3: Vec<i32> = Vec::new();
-    v3.push(1);
-    // # Leggere elementi di un vettore <-- TODO: Studiare paragrafo 8.1.3
+    let mut v2: Vec<i32> = Vec::new();
+    v2.push(1);
+    // # Leggere elementi di un vettore
+    let v3: Vec<i32> = vec![1, 2, 3, 4, 5];
+    // Per leggere gli elementi di un vettore sono disponibili due strade:
+    // - il metodo .get
+    // - gli indici del vettore stesso.
+
+    // Easy: Accedo all'indice 2 del reference a v3 - borrow
+    let terzo_elemento: &i32 = &v3[2];
+    println!(
+        "Modo Easy: Il terzo elemento dell'array v3 è: {}",
+        terzo_elemento
+    );
+    // Hard: Uso una option per tutelarmi dagli errori o da un indice non esiste, associo quindi
+    // v3.get(2) a trd.
+    let trd: Option<&i32> = v3.get(2);
+    match trd {
+        Some(trd) => println!("Modo pro: il terzo elemento è sempre: {}", trd),
+        None => println!("Non esiste alcun terzo elemento!"),
+    }
+
+    // Il risultato del metodo .get è sempre una Option<T>, per cui possiamo chiamare match per
+    // gestire eventuali errori derivanti da un index out of range.
+    // Proviamo a spaccare il programma:
+    //  let v_non_esistente_easy = &v3[1000]; !PANIC
+    //  let v_non_esistente_hard = v.get(100); -> RETURN NONE WITHOUT PANICKING
+    //  v_non_esistente_easy fa andare in panico il programma perché NON esiste l'indice 1000.
+    //  Quando viene utilizzato il metodo .get, se l'indice non esiste questo ritorna NONE senza
+    //  causare il panic del programma.
+    //
+    //  # Iterare nei valori di un vettore
+    //  È possibile iterare nei valori di un vettore utilizzando il classico ciclo for
+    //  referenziando il vettore stesso.
+    for i in &v3 {
+        println!("{}", i);
+    }
 }

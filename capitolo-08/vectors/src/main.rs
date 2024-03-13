@@ -81,4 +81,13 @@ fn main() {
     // inattese, nonostante "si lavori" sull'heap. Ça va sans dire che che nel momento in cui NON
     // si dovessero conoscere TUTTI i tipi che il programma ritornerà a runtime, la "tecnica" enum
     // non funzionerà. Come al solito, RUST CERCA LA SICUREZZA A TUTTI I COSTI.
+    //
+    // # Rimuovere un vettore, rimuoverà i suoi elementi
+    // Come per ogni altra struttura in rust quando un vettore abbandona lo scope viene cancellato
+    // e con esso anche i suoi elementi.
+    // Esempio
+    {
+        let vettore = vec![0, 1, 2];
+        // vettore esce dallo scope qui, viene distrutto e con esso i suoi valori.
+    }
 }

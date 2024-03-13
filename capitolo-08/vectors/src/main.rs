@@ -87,6 +87,7 @@ fn main() {
     // e con esso anche i suoi elementi.
     // Esempio
     {
+        // lo scope inizia qui:
         let vettore = vec![0, 1, 2];
         // vettore esce dallo scope qui, viene distrutto e con esso i suoi valori.
     }

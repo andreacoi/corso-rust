@@ -56,4 +56,29 @@ fn main() {
     for i in &v3 {
         println!("{}", i);
     }
+    //
+    // # Usare una enum per immagazzinare dati di tipi multipli
+    // I vettori, per definizione, possono ospitare un solo tipo. Tuttavia, in alcuni casi,
+    // potrebbe rendersi necessario stilare una lista di elementi di tipi diversi. In questi casi
+    // possiamo utilizzare le enum.
+    // Caso concreto
+    // Abbiamo una enum che rappresenta una cella di un foglio di calcolo che può contenere:
+    // - String
+    // - Float
+    // - Integer
+    enum CellaFoglioCalcolo {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+
+    let row = vec![
+        CellaFoglioCalcolo::Int(10),
+        CellaFoglioCalcolo::Float(8.7),
+        CellaFoglioCalcolo::Text(String::from("Hello world")),
+    ];
+    // Utilizzando una enum combinata con un match garantisce che il codice non riporti condizioni
+    // inattese, nonostante "si lavori" sull'heap. Ça va sans dire che che nel momento in cui NON
+    // si dovessero conoscere TUTTI i tipi che il programma ritornerà a runtime, la "tecnica" enum
+    // non funzionerà. Come al solito, RUST CERCA LA SICUREZZA A TUTTI I COSTI.
 }

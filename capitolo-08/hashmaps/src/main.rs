@@ -27,4 +27,17 @@ fn main() {
     for (key, value) in &scores {
         println!("{key}: {value}");
     }
+
+    // 8.3.3 HashMap e Ownership
+    // Per i tipi che implementano il metodo Copy (vedi i32) i valori vengono copiati nella
+    // hashmap, le stringhe invece vengono SPOSTATE nella hashmap e la proprietà cambia. La stringa
+    // diventa di proprietà della hashmap.
+    //
+    let nome_campo = String::from("Colore preferito");
+    let valore = String::from("Rosso");
+
+    let mut hm = HashMap::new();
+    // nella riga successiva inserisco nome_campo e valore nella hashmap.
+    // DA QUESTO MOMENTO LA PROPRIETÀ di nome_campo e di valore CAMBIA.
+    hm.insert(nome_campo, valore);
 }

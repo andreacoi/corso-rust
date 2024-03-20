@@ -40,4 +40,31 @@ fn main() {
     // nella riga successiva inserisco nome_campo e valore nella hashmap.
     // DA QUESTO MOMENTO LA PROPRIETÀ di nome_campo e di valore CAMBIA.
     hm.insert(nome_campo, valore);
+
+    // 8.3.4 Aggiornare una hashmap
+    // 8.3.4.1 Sovrascrivere un valore
+    // Per sovrascrivere un valore in una hashmap è sufficiente chiamare insert su hashmap (in
+    // questo caso scores) specificando la chiave identica ad una già esistente (in questo caso
+    // abbiamo aggiornato il punteggio della squadra blu).
+    scores.insert(String::from("Squadra Blu"), 70);
+    let punteggio = scores
+        .get(&String::from("Squadra Blu"))
+        .copied()
+        .unwrap_or(0);
+    println!("==== Overwrite valore punteggio Squadra Blu ====");
+    println!("Punteggio aggiornato: Squadra Blu --> {punteggio}");
+
+    // 8.3.4.2 Aggiungere una chiave e un valore se questi non esistono
+    // Il metodo entry consente di verificare che una chiave esista. Aggiungendo or_insert a entry,
+    // questo si comporterà in due modi possibili:
+    // 1. tornerà una reference mut al valore della chiave verificata da entry (se la chiave esiste)
+    // 2. se la chiave non esiste, procederà alla creazione della stessa e ritornerà (anche qui)
+    //    una reference mut al valore della nuova chiave.
+    // Test
+    scores.entry(String::from("Squadra Blu")).or_insert(90);
+    println!("==== Test del metodo entry e di on_insert ====");
+    println!("{:?}", scores);
+    println!("==== Fine del test con entry esistente, nuovo test... ====");
+    scores.entry(String::from("Squadra Viola")).or_insert(90);
+    println!("{:?}", scores);
 }

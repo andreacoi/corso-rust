@@ -67,4 +67,18 @@ fn main() {
     println!("==== Fine del test con entry esistente, nuovo test... ====");
     scores.entry(String::from("Squadra Viola")).or_insert(90);
     println!("{:?}", scores);
+
+    // 8.3.4.3 Aggiornare un valore sulla base del vecchio valore
+    // Può capitare di dover aggiornare un valore in una hashmap su base condizionale.
+    //
+    let text = "Hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        // se map.entry(word) esiste count al valore referenziato di word, altrimenti il valore di
+        // word è 0 (sempre referenziato).
+        let count = map.entry(word).or_insert(0);
+        // entry ritorna una reference, per cui per aggiornare count dobbiamo deferenziarlo.
+        *count += 1;
+    }
+    println!("{:?}", map);
 }

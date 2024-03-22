@@ -112,3 +112,8 @@ fn read_username_from_file(filename: &str) -> Result<String, io::Error> {
     username_file.read_to_string(&mut username)?;
     Ok(username)
 }
+
+// N.B. È possibile utilizzare ? solo nel caso in cui la funzione ritorni uno di questi 3 tipi:
+// - Result;
+// - Option;
+// - impl FromResidual;

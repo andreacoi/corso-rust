@@ -103,3 +103,11 @@ fn leggi_username_utente_da_file(nome_file: &str) -> Result<String, io::Error> {
 // È sufficiente utilizzare il ?
 // Eseguo una riscrittura della funzione leggi_username_utente_da_file, chiamandola in modo
 // diverso.
+//
+
+fn read_username_from_file(filename: &str) -> Result<String, io::Error> {
+    let mut username_file = File::open(&filename)?;
+    let mut username = String::new();
+    username_file.read_to_string(&mut username)?;
+    Ok(username)
+}

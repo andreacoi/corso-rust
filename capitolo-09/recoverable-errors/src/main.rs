@@ -10,5 +10,12 @@ enum Result<T, E> {
     Err(E),
 }
 fn main() {
-    let greetings_file = File::open("file.txt");
+    let greetings_file_result = File::open("file.txt");
+
+    let gfile = match greetings_file_result {
+        Ok(file) => file,
+        Err(error) => {
+            panic!("Il file non esiste: {:?}", error)
+        }
+    };
 }

@@ -74,10 +74,11 @@ fn main() {
     let new_file = File::open("gino.txt").expect("Il file non esiste.");
     // Di solito gli sviluppatori Rust tendono ad utilizzare expect.
     // P. 9.2.2 Propagazione degli errori - callback della funzione
-    let user = leggi_username_utente_da_file("andrea.txt");
+    let user_v1 = leggi_username_utente_da_file("andrea.txt");
+    let user_v2 = read_username_from_file("filea.txt");
     // user ritorna una Result<Ok(nomeutente), Err(errore)>
     // dopo aver ricavato user, scrivi lo username
-    match user {
+    match user_v1 {
         Ok(utente) => println!("Hai selezionato il file dell'utente: {}", utente),
         Err(e) => println!("File non presente."),
     }

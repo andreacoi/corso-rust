@@ -2,6 +2,9 @@ use std::fs::File;
 // integro la libreria ErrorKind
 // p. 9.2.1
 use std::io::ErrorKind;
+// integra la libreria io e Read
+// p. 9.2.2
+use std::io::{self, Read};
 
 // Per gestire gli errori recuperabili RUST utilizza la enum Result<T, E> dove T ed E sono
 // parametri di tipo generico. Solitamente è un modo per stabilire il comportamento del programma
@@ -9,10 +12,6 @@ use std::io::ErrorKind;
 // - se OK comportati in un certo modo,
 // - se ERR comportati in un altro.
 
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
 fn main() {
     let greetings_file_result = File::open("file.txt");
 
@@ -74,4 +73,33 @@ fn main() {
     // panic.
     let new_file = File::open("gino.txt").expect("Il file non esiste.");
     // Di solito gli sviluppatori Rust tendono ad utilizzare expect.
+    // P. 9.2.2 Propagazione degli errori - callback della funzione
+    let user = leggi_username_utente_da_file("andrea.txt");
+    // user ritorna una Result<Ok(nomeutente), Err(errore)>
+    // dopo aver ricavato user, scrivi lo username
+    match user {
+        Ok(utente) => println!("Hai selezionato il file dell'utente: {}", utente),
+        Err(e) => println!("File non presente."),
+    }
 }
+fn leggi_username_utente_da_file(nome_file: &str) -> Result<String, io::Error> {
+    // 9.2.2 Propagazione degli errori
+    // La propagazione degli errori consente di avere maggior controllo se una funzione ritorna un
+    // errore al chiamante, stabilendo in base all'applicazione come dobbiamo comportarci.
+    let username_file_result = File::open(&nome_file);
+    let mut username_file = match username_file_result {
+        Ok(file) => file,
+        Err(error) => return Err(error),
+    };
+
+    let mut username = String::new();
+    match username_file.read_to_string(&mut username) {
+        Ok(_) => Ok(username),
+        Err(e) => Err(e),
+    }
+}
+// 9.2.2.1 Scorciatoia per la propagazione degli errori
+// Rust ha anche una scorciatoia per la propagazione degli errori.
+// È sufficiente utilizzare il ?
+// Eseguo una riscrittura della funzione leggi_username_utente_da_file, chiamandola in modo
+// diverso.

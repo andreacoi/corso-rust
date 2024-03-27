@@ -33,3 +33,7 @@ Se dovessi avere ulteriori appunti durante la fase di apprendimento li riporter�
 ## Edits
 
 In data 25/02/24 ho eseguito una revisione nell'organizzazione dei capitoli e dei paragrafi avendo cura di farli corrispondere.
+
+## Note e altri spunti oltre a "The Book"
+
+In data 27/03/24 ho scoperto un repo Github, a cura di Carlo Milanesi, che riporta i paragrafi presenti nel libro ("The Book"), interamente tradotti. Il libro che ho utilizzato per la comprensione dei concetti più complessi è riportato a [questo link](https://carlomilanesi.github.io/linguaggio-rust/README.html). Ringrazio [Carlo Milanesi](https://github.com/carlomilanesi) che nella mia più onesta opinione ha compiuto un vero e proprio miracolo con la traduzione di "The Book".

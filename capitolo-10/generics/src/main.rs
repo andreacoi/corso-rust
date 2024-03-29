@@ -111,4 +111,20 @@ struct SPoint<T, U> {
     y: U,
 }
 
-/* 10.2.3 Generics nelle definizioni Enum */
+/* 10.2.3 Definizione degli struct negli enum
+ * Come si può vedere dalla definizione di enum derivante dalla libreria standard anche gli enum
+ * supportano i generics.
+ *
+ */
+
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+// Lo stesso caso ci viene presentato da Result, utilizzato per la gestione degli errori.
+
+enum Result<T, E> {
+    Some(T),
+    Error(E),
+}

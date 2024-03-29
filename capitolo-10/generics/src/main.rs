@@ -26,6 +26,10 @@ fn main() {
         "Uso una nuova funzione.\n Il char più grande della lista è: {}",
         result
     );
+
+    let integer = Point { x: 10, y: 10 }; // <-- tipi uguali
+                                          // Point viene reinizializzato ad ogni dichiarazione.
+    let float = Point { x: 10.2, y: 10.3 }; // <-- tipi uguali
 }
 
 /* Per comprendere bene i generics scriviamo due funzioni: una che calcoli l'i32 più grande
@@ -82,3 +86,29 @@ fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
     }
     largest
 }
+
+/* 10.2.2 Generics nelle definizioni delle struct
+* I generics possono essere utilizzati allo stesso modo nella definizione di una struct con
+* all'interno dei campi generics.
+* Anche in questo caso si utilizzerà per convenzione la lettera T.
+* N.B. Anche se viene dichiarato <T> come tipo generico della struct, QUALSIASI tipo venga
+* utilizzato per un campo della struct dev'essere LO STESSO per TUTTI.
+* */
+
+struct Point<T> {
+    x: T,
+    // se x "dovesse diventare" un i32, anche y dovrà "diventare" un i32.
+    y: T,
+}
+/*
+ * È comunque possibile, dichiarare una struct con due generics di tipo diverso, utilizzando la U
+ * insieme alla T, come si vede dal codice in basso.
+ * È bene comunque specificare che NON È concesso utilizzare "molti generics" in una struct. Se ci
+ * si dovesse trovare in tale situazione è consigliabile pensare a un refactoring del codice.
+ * */
+struct SPoint<T, U> {
+    x: T,
+    y: U,
+}
+
+/* 10.2.3 Generics nelle definizioni Enum */

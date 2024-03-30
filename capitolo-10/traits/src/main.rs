@@ -22,7 +22,36 @@ pub trait Sommario {
 * carico del tipo che implementerà il trait.
 * In questo modo, tutti i tipi che dovessero implementare Sommario saranno obbligati a specificare
 * il comportamento della funzione summarize, che può differire ogni volta.
-* */
+* Quest'obbligo verrà imposto dal compilatore.
+
+* 10.3.2 Implementare un trait su un tipo
+* Proviamo ad applicare il trait Sommario a due tipi, uno è una struct chiamata News, con i campi:
+* headline, location, author, content, l'altro è una struct chiamata Tweet con i campi: username,
+* content, reply, retweet.
+*es.
+**/
+
+// News è un nuovo tipo su cui poter implementare dei traits.
+pub struct News {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+// Lo stesso discorso vale per Tweet, anche qui è possibile implementare dei trait.
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+// scrivo il trait per news, se non dichiaro la funzione summarize, rust mi restituisce errore.
+impl Sommario for News {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
 fn main() {
     println!("Hello, world!");
 }

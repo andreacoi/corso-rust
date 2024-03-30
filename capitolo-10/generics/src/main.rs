@@ -154,3 +154,12 @@ impl Point<f32> {
 /* Questo codice significa che questa impl definisce metodi solo se <T> è un f32. Qualora <T> non
 * dovesse essere un f32 il metodo distance_from_origin non sarebbe definito.
 */
+
+/* 10.2.5 - Performance nell'utilizzo dei generics - Monomorfismo */
+/* Anche se, date le peculiarità dei generics, potrebbe sembrare che il loro utilizzo rallenti il
+* codice di Rust, questo in realtà non accade per merito di una proprietà del linguaggio che entra
+* in gioco al momento della compilazione: il Monomorfismo.
+* Il Monomorfismo consiste nell'attuazione (da parte del compilatore) della pratica inversa a
+* quella applicata durante la dichiarazione dei generics. Rust, infatti, cerca di ricondurre tutti
+* i tipi generici a un tipo concreto, interprentando il codice e velocizzandone la compilazione.
+*/

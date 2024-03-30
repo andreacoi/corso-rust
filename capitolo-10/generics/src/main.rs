@@ -128,3 +128,26 @@ enum Result<T, E> {
     Some(T),
     Error(E),
 }
+
+struct TPoint<X1, Y1> {
+    x: X1,
+    y: Y1,
+}
+/* 10.2.4 Generics nella definizione di metodi
+* Così come abbiamo visto per le struct e per le enum è possibile utilizzare i generics anche nei
+* metodi ad essi associati. Dichiarando il generic tra parentesi angolari dopo la keyword impl
+* diciamo al compilatore di aspettarsi un tipo generico anziché un tipo reale, concreto.
+* È bene specificare che, nonostante sia possibile utilizzare un nome diverso per il generic
+* dichiarato nel metodo, è buona prassi utilizzare la stessa lettera specificata nella struct o
+* nella enum di riferimento. Questo facilità la lettura e la comprensione del codice.
+* es. impl<T> Point<T>
+* È anche possibile specificare dei vincoli nel metodo e in quel caso non è necessario specificare
+* il generic dopo la parola impl.
+* es. impl Point<f32>
+* In questo caso si obbliga a implementare solo metodi su Point<f32>.
+*/
+impl Point<f32> {
+    fn distance_from_origin(&self) -> f32 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}

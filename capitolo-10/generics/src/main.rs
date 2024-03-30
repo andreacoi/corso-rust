@@ -151,3 +151,6 @@ impl Point<f32> {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
 }
+/* Questo codice significa che questa impl definisce metodi solo se <T> è un f32. Qualora <T> non
+* dovesse essere un f32 il metodo distance_from_origin non sarebbe definito.
+*/

@@ -51,7 +51,25 @@ impl Sommario for News {
         format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
 }
-
+// scrivo il trait per Tweet, anche qui sono obbligato a dichiarare la funzione summarize per non
+// ottenere errori.
+impl Sommario for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
+}
+/*
+* Il testo riporta questi trait e le loro implementazioni in un file lib.rs e poi li include
+* tramite il crate aggregator, in questo modo: use aggregator::{Summary, Tweet}.
+* Avendo lavorato solo nel main non è necessario utilizzare use.*/
 fn main() {
-    println!("Hello, world!");
+    /* Utilizzo dei trait e delle loro implementazioni
+     * */
+    let tweet = Tweet {
+        username: String::from("andrea.coi"),
+        content: String::from("Il mio primo Tweet"),
+        reply: false,
+        retweet: false,
+    };
+    println!("Il tuo primo tweet: {}", tweet.summarize());
 }

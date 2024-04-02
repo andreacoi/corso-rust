@@ -62,6 +62,23 @@ impl Sommario for Tweet {
 * Il testo riporta questi trait e le loro implementazioni in un file lib.rs e poi li include
 * tramite il crate aggregator, in questo modo: use aggregator::{Summary, Tweet}.
 * Avendo lavorato solo nel main non è necessario utilizzare use.*/
+
+/*
+* 10.3.3 Implementazioni di default
+* Nonostante sia obbligatorio dichiarare una funzionalità per un metodo quando si va ad utilizzare
+* un'implementazione in un trait, potrebbe succedere di voler dichiarare una funzionalità di
+* default per quel metodo. In tal caso è possibile specificare la funzionalità del metodo
+* direttamente nel trait.
+* Così come le funzioni normali anche i metodi supportano l'override. Inoltre, con le
+* implementazioni di default è possibile scrivere meno codice.
+* Es.
+*   pub trait Sommario {
+*   fn summarize(&self) -> String {
+*     String::from("Leggi tutto");
+*     // implementazione di default
+*   }
+}
+* */
 fn main() {
     /* Utilizzo dei trait e delle loro implementazioni
      * */

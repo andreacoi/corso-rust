@@ -76,6 +76,7 @@ impl Sommario for Tweet {
 *   fn summarize(&self) -> String {
 *     String::from("Leggi tutto");
 *     // implementazione di default
+*     // TODO: OVERRIDE ED ESTENSIONE ALL'IMPLEMENTAZIONE DI DEFAULT.
 *   }
 }
 * */

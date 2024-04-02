@@ -73,12 +73,26 @@ impl Sommario for Tweet {
 * implementazioni di default è possibile scrivere meno codice.
 * Es.
 *   pub trait Sommario {
+*       fn summarize(&self) -> String {
+*           String::from("Leggi tutto");
+*           // implementazione di default
+*       }
+*    }
+* Con questa implementazione di default non è necessario specificare la funzionalità di summarize()
+* alla dichiarazione di impl.
+* Override
+* Es.
+*  pub trait Sommario {
+*   fn summarize_author(&self) -> String;
+*
 *   fn summarize(&self) -> String {
-*     String::from("Leggi tutto");
-*     // implementazione di default
-*     // TODO: OVERRIDE ED ESTENSIONE ALL'IMPLEMENTAZIONE DI DEFAULT.
+*       format!("Read more from {}...", self.summarize_author())
 *   }
-}
+*  }
+*  summarize va in override automaticamente al "cambiamento" di summarize_author. Quindi non c'è
+*  bisogno di implementare una funzionalità per summarize e una per summarize_author. Basta
+*  semplicemente definire il funzionamento di summarize_author per avere il pieno funzionamento del
+*  trait con la minima scrittura di codice in più.
 * */
 fn main() {
     /* Utilizzo dei trait e delle loro implementazioni

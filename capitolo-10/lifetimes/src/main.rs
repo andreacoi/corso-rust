@@ -44,7 +44,10 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
         y
     }
 }
-// 10.5 Unisco tutti i concetti in un'unica funzione
+// 10.5 - ECCEZIONE! Unisco tutti i concetti in un'unica funzione, doveva essere un cargo a parte ma il
+//    paragrafo è troppo corto per essere escluso da questo progetto. Si tratta della revisione
+//    della funzione longest, che io chiamo lnv2, che viene effettuata accorpando tutti i concetti
+//    del capitolo 10.
 fn lnv2<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
 where
     T: Display,

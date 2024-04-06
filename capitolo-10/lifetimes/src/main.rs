@@ -15,3 +15,12 @@ fn main() {
 // sono valide.
 // L'annotazione si scrive tra virgolette angolari dopo la dichiarazione della funzione, come i
 // generics utilizzando l'apostrofo e la definizione più breve possibile (solitamente a, b, c...).
+// Es.
+
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}

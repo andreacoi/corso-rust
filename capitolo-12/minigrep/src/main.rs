@@ -8,6 +8,8 @@
 // della funzione args fornita dalla Rust stdlib.
 
 use std::env;
+// carico, sempre dalla standard library fs, che serve per gestire la lettura da file
+use std::fs;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -22,4 +24,7 @@ fn main() {
     // stampo le due stringhe "di benvenuto" prima di iniziare la ricerca
     println!("Sto cercando {}", query);
     println!("nel file {}", file_path);
+    let contents =
+        fs::read_to_string(file_path).expect("dovrei poter leggere dal file... che succede?");
+    println!("La ricerca verrà eseguita su questo testo: \n {contents}");
 }

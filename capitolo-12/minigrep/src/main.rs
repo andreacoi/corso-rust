@@ -19,12 +19,20 @@ fn main() {
     // args[0] è il nome del programma in esecuzione. Quindi gli indici da 1 in poi sono quelli
     // destinati agli argomenti.
     // salvo gli argomenti nelle variabili
-    let query = &args[1];
-    let file_path = &args[2];
+    let (query, file_path) = parse_config(&args);
     // stampo le due stringhe "di benvenuto" prima di iniziare la ricerca
-    println!("Sto cercando {}", query);
-    println!("nel file {}", file_path);
+    println!("Sto cercando {}", &query);
+    println!("nel file {}", &file_path);
     let contents =
         fs::read_to_string(file_path).expect("dovrei poter leggere dal file... che succede?");
     println!("La ricerca verrà eseguita su questo testo: \n {contents}");
+}
+
+// al fine di manutenere in maniera più efficiente il parse degli argomenti vado ad estrarre gli
+// stessi dal main in una funzione dedicata.
+
+fn parse_config(args: &[String]) -> (&str, &str) {
+    let query = &args[1];
+    let file_path = &args[2];
+    (query, file_path)
 }

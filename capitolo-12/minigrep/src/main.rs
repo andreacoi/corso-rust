@@ -19,7 +19,7 @@ fn main() {
     // args[0] è il nome del programma in esecuzione. Quindi gli indici da 1 in poi sono quelli
     // destinati agli argomenti.
     // salvo gli argomenti nelle variabili
-    let config = parse_config(&args);
+    let config = Config::new(&args);
     // stampo le due stringhe "di benvenuto" prima di iniziare la ricerca
     println!("Sto cercando {}", config.query);
     println!("nel file {}", config.file_path);
@@ -43,10 +43,20 @@ struct Config {
     query: String,
     file_path: String,
 }
+// implemento il costruttore --> invocando Config::new(&args) vado a inizializzare automaticamente
+// la configurazione. Rimpiazza la funzione parse_config.
+impl Config {
+    fn new(args: &[String]) -> Config {
+        let query = args[1].clone();
+        let file_path = args[2].clone();
+
+        Config { query, file_path }
+    }
+}
 // ho scelto di clonare gli elementi di args perché è complicato gestire il lifetime delle
-// variabili a partire dalla struct.
-fn parse_config(args: &[String]) -> Config {
+// variabili a partire dalla struct. Sostituita dal costruttore new nella impl Config.
+/* fn parse_config(args: &[String]) -> Config {
     let query = args[1].clone();
     let file_path = args[2].clone();
     Config { query, file_path }
-}
+} */

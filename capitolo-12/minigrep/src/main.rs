@@ -7,10 +7,10 @@
 // Per poter eseguire il parse degli argomenti passati al programma tramite cli abbiamo bisogno
 // della funzione args fornita dalla Rust stdlib.
 
-use core::panic;
 use std::env;
 // carico, sempre dalla standard library fs, che serve per gestire la lettura da file
 use std::fs;
+use std::process;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -20,7 +20,10 @@ fn main() {
     // args[0] è il nome del programma in esecuzione. Quindi gli indici da 1 in poi sono quelli
     // destinati agli argomenti.
     // salvo gli argomenti nelle variabili
-    let config = Config::new(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Problema nel parsing degli argomenti: {err}");
+        process::exit(1);
+    });
     // stampo le due stringhe "di benvenuto" prima di iniziare la ricerca
     println!("Sto cercando {}", config.query);
     println!("nel file {}", config.file_path);
@@ -50,17 +53,21 @@ struct Config {
 // Problema da risolvere
 // Se gli args sono in un numero < 3 il programma andrà in panic, perché cercherà di accedere a un
 // indice che non esiste (il nome del programma ha indice 0).
-
+/* Per gestire gli errori in maniera pulita ricorro a Result<T, E>, enum particolare del capitolo 9,
+* laddove T rappresenterà un'istanza di Config ed E un letterale stringa con lifetime static.
+* Inoltre, il nome della funzione non sarà più new() perché solitamente si intendono con new delle
+* funzioni che NON POSSONO FALLIRE. Riscrivo quindi la signature di new, che diventerà build.
+*/
 impl Config {
-    fn new(args: &[String]) -> Config {
+    fn build(args: &[String]) -> Result<Config, &'static str> {
         //verifica che gli argomenti siano > 3 prima di eseguire il programma.
         if args.len() < 3 {
-            panic!("devi dichiarare più argomenti");
+            return Err("Devi dichiarare almeno tre argomenti...");
         }
         let query = args[1].clone();
         let file_path = args[2].clone();
 
-        Config { query, file_path }
+        Ok(Config { query, file_path })
     }
 }
 // ho scelto di clonare gli elementi di args perché è complicato gestire il lifetime delle

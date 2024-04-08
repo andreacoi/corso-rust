@@ -7,6 +7,7 @@
 // Per poter eseguire il parse degli argomenti passati al programma tramite cli abbiamo bisogno
 // della funzione args fornita dalla Rust stdlib.
 
+use core::panic;
 use std::env;
 // carico, sempre dalla standard library fs, che serve per gestire la lettura da file
 use std::fs;
@@ -45,8 +46,17 @@ struct Config {
 }
 // implemento il costruttore --> invocando Config::new(&args) vado a inizializzare automaticamente
 // la configurazione. Rimpiazza la funzione parse_config.
+
+// Problema da risolvere
+// Se gli args sono in un numero < 3 il programma andrà in panic, perché cercherà di accedere a un
+// indice che non esiste (il nome del programma ha indice 0).
+
 impl Config {
     fn new(args: &[String]) -> Config {
+        //verifica che gli argomenti siano > 3 prima di eseguire il programma.
+        if args.len() < 3 {
+            panic!("devi dichiarare più argomenti");
+        }
         let query = args[1].clone();
         let file_path = args[2].clone();
 

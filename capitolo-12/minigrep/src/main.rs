@@ -32,7 +32,15 @@ fn main() {
     /* let contents = fs::read_to_string(config.file_path)
         .expect("dovrei poter leggere dal file... che succede?");
     println!("La ricerca verrà eseguita su questo testo: \n {contents}"); */
-    run(config);
+    // la funzione run non ritorna alcun valore ma viene utilizzata solo per stampare le variabili
+    // e i risultati. Ciò significa che non possiamo utilizzare l'unwrap_or_else perché non abbiamo
+    // valori di cui eseguire l'unwrap.
+    // Ci viene in aiuto il costrutto if let che consente di gestire l'errore nel caso in cui si
+    // presenti. Ragionamento in logica negativa.
+    if let Err(e) = run(config) {
+        println!("Errore nell'applicazione: {e}");
+        process::exit(1);
+    }
 }
 
 // al fine di manutenere in maniera più efficiente il parse degli argomenti vado ad estrarre gli

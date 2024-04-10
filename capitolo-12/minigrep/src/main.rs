@@ -11,7 +11,8 @@ use std::env;
 // carico, sempre dalla standard library fs, che serve per gestire la lettura da file
 use std::fs;
 use std::process;
-
+// uso Error per gestire il Box Error nella funzione run()
+use std::error::Error;
 fn main() {
     let args: Vec<String> = env::args().collect();
     // la funzione collect crea un iteratore, una collezione di oggetti (di tipo String),
@@ -79,9 +80,24 @@ impl Config {
     let file_path = args[2].clone();
     Config { query, file_path }
 } */
-fn run(config: Config) {
-    let contents = fs::read_to_string(config.file_path)
-        .expect("dovrei poter leggere dal file... che succede?");
+// gestiamo gli errori derivanti dalla funzione -- SEMPRE CON IL SOLITO RESULT<T,E>
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    // Result<T,E> ritorna una clousure () "come T" e Box<dyn Error> come E.
+    // Box<dyn Error> significa che quando la funzione ritorna un errore, lo fa ritornando un tipo
+    // generico che implementa il trait Error.
+    // Per questo motivo è necessario utilizzare all'inizio del file:
+    // use std::error::Error;
+    // che è l'interfaccia che ci consente di utilizzare il trait Error.
+    let contents = fs::read_to_string(config.file_path)?;
+    // con il ? ritorno un valore di tipo Errore generico invece di utilizzare expect che causa il
+    // panic!
 
     println!("La ricerca verrà eseguita su questo testo: \n {contents}");
+    // con l'espressione che segue specifico che in caso di Ok, ritorno una closure vuota. Questo
+    // "costrutto" è idiomatico e signfica che in caso di Ok stiamo chiamando run() ESPRESSAMENTE
+    // per i suoi effetti collaterali e per tali non necessitiamo di un valore di ritorno.
+    // Tradotto: La funzione run() si occupa solo di stampare dei risultati e non ritorna alcun
+    // valore.
+    Ok(())
+    // TODO: gestire errori riportati da warn.
 }

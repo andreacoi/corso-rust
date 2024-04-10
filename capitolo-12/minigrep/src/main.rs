@@ -27,9 +27,11 @@ fn main() {
     // stampo le due stringhe "di benvenuto" prima di iniziare la ricerca
     println!("Sto cercando {}", config.query);
     println!("nel file {}", config.file_path);
-    let contents = fs::read_to_string(config.file_path)
+    // estraggo il ritorno di contents in un'altra funzione
+    /* let contents = fs::read_to_string(config.file_path)
         .expect("dovrei poter leggere dal file... che succede?");
-    println!("La ricerca verrà eseguita su questo testo: \n {contents}");
+    println!("La ricerca verrà eseguita su questo testo: \n {contents}"); */
+    run(config);
 }
 
 // al fine di manutenere in maniera più efficiente il parse degli argomenti vado ad estrarre gli
@@ -77,3 +79,9 @@ impl Config {
     let file_path = args[2].clone();
     Config { query, file_path }
 } */
+fn run(config: Config) {
+    let contents = fs::read_to_string(config.file_path)
+        .expect("dovrei poter leggere dal file... che succede?");
+
+    println!("La ricerca verrà eseguita su questo testo: \n {contents}");
+}

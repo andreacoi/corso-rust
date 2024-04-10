@@ -18,6 +18,10 @@ fn main() {
     // args[0] è il nome del programma in esecuzione. Quindi gli indici da 1 in poi sono quelli
     // destinati agli argomenti.
     // salvo gli argomenti nelle variabili
+    // ATTENZIONE! Utilizzando build senza specificare il prefisso Config (la struct che poi fa da
+    // appoggio alle funzioni associate) il sistema cercherà la funzione build in tutto lo scope
+    // non trovandola. Questo perché build è una funzione associata PROPRIA DELLA STRUCT Config,
+    // che abbiamo richiamato con il primo use.
     let config = Config::build(&args).unwrap_or_else(|err| {
         println!("Problema nel parsing degli argomenti: {err}");
         process::exit(1);

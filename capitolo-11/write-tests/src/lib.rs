@@ -34,4 +34,19 @@ mod tests {
         };
         assert!(larger.can_hold(&smaller));
     }
+    // 11.1.3 Assert_eq e Assert_ne
+    // Un altro modo per verificare il nostro codice è quello di utilizzare dei test che
+    // verifichino L'UGUAGLIANZA DI UN VALORE. Benché lo si possa fare anche utilizzando la macro
+    // assert e l'operatore di uguaglianza ==, Rust prevede DUE ULTERIORI MACRO atte proprio allo
+    // scopo.
+    // Queste due macro sono: assert_eq! e assert_ne! (eq sta per equal, ne sta per not equal).
+    // Es.
+    pub fn aggiungi_due(x: u32) -> u32 {
+        x + 3
+    }
+
+    #[test]
+    fn aggiunge_davvero_due() {
+        assert_eq!(4, aggiungi_due(2));
+    }
 }

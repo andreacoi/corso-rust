@@ -49,4 +49,14 @@ mod tests {
     fn aggiunge_davvero_due() {
         assert_eq!(4, aggiungi_due(2));
     }
+    /*11.1.6 Usare Result<T,E> nei test
+     * È possibile utilizzare Result<T,E> anche nei test. Ecco un esempio. */
+    #[test]
+    fn it_works() -> Result<(), String> {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from("2+2 non fa quattro."))
+        }
+    }
 }

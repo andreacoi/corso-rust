@@ -49,8 +49,6 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.file_path)?;
     // con il ? ritorno un valore di tipo Errore generico invece di utilizzare expect che causa il
     // panic!
-
-    println!("La ricerca verrà eseguita su questo testo: \n {contents}");
     // con l'espressione che segue specifico che in caso di Ok, ritorno una closure vuota. Questo
     // "costrutto" è idiomatico e signfica che in caso di Ok stiamo chiamando run() ESPRESSAMENTE
     // per i suoi effetti collaterali e per tali non necessitiamo di un valore di ritorno.
@@ -58,3 +56,19 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // valore.
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn one_result() {
+        let query = "duct";
+        let contents = "\
+            Rust: safe, fast, productive.
+            Pick three.";
+        assert_eq!(vec!["safe, fast, productive"], search(query, contents));
+    }
+}
+/* al momento della stesura di questo test la funzione search ANCORA NON ESISTE, perciò questo test
+* fallirà. Questo è proprio quanto sta alla base del test driven devel
+* f

@@ -54,6 +54,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // per i suoi effetti collaterali e per tali non necessitiamo di un valore di ritorno.
     // Tradotto: La funzione run() si occupa solo di stampare dei risultati e non ritorna alcun
     // valore.
+    // TODO: INSERIRE SEARCH IN RUN --> CONCLUSI I TEST DI FUNZIONAMENTO.
     Ok(())
 }
 

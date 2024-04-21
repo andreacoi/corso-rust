@@ -64,11 +64,32 @@ mod tests {
     fn one_result() {
         let query = "duct";
         let contents = "\
-            Rust: safe, fast, productive.
-            Pick three.";
-        assert_eq!(vec!["safe, fast, productive"], search(query, contents));
+Rust:
+safe, fast, productive.
+Pick three.";
+        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
     }
 }
 /* al momento della stesura di questo test la funzione search ANCORA NON ESISTE, perciò questo test
-* fallirà. Questo è proprio quanto sta alla base del test driven devel
-* f
+* fallirà. Questo è proprio quanto sta alla base del test driven development.
+* IL TDD - TEST DRIVEN DEVELOPMENT
+* la logica alla base di questo tipo di sviluppo consiste nel fatto che lo sviluppo viene
+* effettuato sulla base di quanto atteso dal risultato dei test.
+* Avendo quindi stabilito, nel test "one_result" che il tipo di uguaglianza richiesta da assert_eq
+* è un vec composto da una stringa, scriverò la funzione search in modo che possa essere in grado
+* di eseguire il test INDIPENDEMENTE DAL SUO ESITO.
+* la funzione search è così realizzata:
+*/
+
+pub fn search<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
+    // crea un vettore che verrà popolato con i risultati della ricerca.
+    let mut results = Vec::new();
+    // inizia a iterare nelle linee di content utilizzando il metodo lines()
+    for line in content.lines() {
+        // fa qualcosa SE line contiene query - salvataggio nel vettore e successivo ritorno.
+        if line.contains(query) {
+            results.push(line)
+        }
+    }
+    results
+}

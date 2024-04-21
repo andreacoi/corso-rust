@@ -26,5 +26,6 @@ mod tests {
      * perché i nomi delle funzioni di cui eseguire il test iniziano per add.
      *
      * Per ignorare i test, è sufficiente specificare #[ignore] dopo il decorator #[test].
+     * È possibile eseguire comunque i test ignorati passando l'argomento --ignored a cargo test.
      * */
 }

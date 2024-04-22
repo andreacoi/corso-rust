@@ -3,7 +3,7 @@
 * v.0.1
 * Autore: Andrea Coi
 */
-
+// PROGETTO TERMINATO IL 22/04/2024 - CHIUSURA DEL CAPITOLO 12.
 // Per poter eseguire il parse degli argomenti passati al programma tramite cli abbiamo bisogno
 // della funzione args fornita dalla Rust stdlib.
 

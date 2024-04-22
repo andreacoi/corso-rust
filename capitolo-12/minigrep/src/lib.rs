@@ -54,7 +54,11 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // per i suoi effetti collaterali e per tali non necessitiamo di un valore di ritorno.
     // Tradotto: La funzione run() si occupa solo di stampare dei risultati e non ritorna alcun
     // valore.
-    // TODO: INSERIRE SEARCH IN RUN --> CONCLUSI I TEST DI FUNZIONAMENTO.
+    // Dopo aver verificato che tutti i test sono andati a buon fine posso integrare la funzione
+    // search nella funzione run().
+    for line in search(&config.query, &contents) {
+        println!("{line}");
+    }
     Ok(())
 }
 
@@ -70,6 +74,12 @@ safe, fast, productive.
 Pick three.";
         assert_eq!(vec!["safe, fast, productive."], search(query, contents));
     }
+    // stabilito il funzionamento della funzione search così com'è, andiamo ad aggiungere una nuova
+    // feature al programma,.utiòizzando le variabili d'ambiente. In particolare possiamo scrivere
+    // un tipo di ricerca che tenga conto di maiuscole e minuscole (case sensitive) e uno che NON
+    // tenga presente di tale differenza (case insensitive). Per scrivere tali funzioni seguiamo
+    // sempre lo stesso procedimento, il TDD. Quindi vado a copiare le funzioni in test e lavoro su
+    // quelle.
 }
 /* al momento della stesura di questo test la funzione search ANCORA NON ESISTE, perciò questo test
 * fallirà. Questo è proprio quanto sta alla base del test driven development.

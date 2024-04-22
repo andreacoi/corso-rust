@@ -68,6 +68,10 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     //     println!("{line}");
     // }
 
+    // popola let con condizione if/else. se ignore_case = 1 (SETTATO COME ENV VARIABLE) associa a
+    // result il valore di ritorno della funzione search_case_insensitive, altrimenti quello della
+    // funzione search.
+    //
     let result = if config.ignore_case {
         search_case_insensitive(&config.query, &contents)
     } else {

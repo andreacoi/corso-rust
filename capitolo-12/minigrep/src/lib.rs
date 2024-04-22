@@ -150,14 +150,14 @@ pub fn search_case_insensitive<'a>(query: &'a str, content: &'a str) -> Vec<&'a 
     // N.B. il metodo lowercase potrebbe essere impreciso nella conversione di un Unicode.
     let query = query.to_lowercase();
     // così come per il test precedente inizializzo uno vettore vuoto.
-    let mut result = Vec::new();
+    let mut results = Vec::new();
     // vado a ciclare le linee del contenuto, utilizzando il metodo lines()
     for line in content.lines() {
         // dopo aver convertito query in minuscolo, faccio lo stesso con line, prima di verificare
         // se QUELLA linea contiene la query ricercata.
         if line.to_lowercase().contains(&query) {
-            result.push(line);
+            results.push(line);
         }
     }
-    result
+    results
 }

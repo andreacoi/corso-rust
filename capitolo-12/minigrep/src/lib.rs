@@ -66,12 +66,13 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 mod tests {
     use super::*;
     #[test]
-    fn one_result() {
+    fn case_sensitive() {
         let query = "duct";
         let contents = "\
 Rust:
 safe, fast, productive.
-Pick three.";
+Pick three.
+Duct tape.";
         assert_eq!(vec!["safe, fast, productive."], search(query, contents));
     }
     // stabilito il funzionamento della funzione search così com'è, andiamo ad aggiungere una nuova
@@ -80,6 +81,23 @@ Pick three.";
     // tenga presente di tale differenza (case insensitive). Per scrivere tali funzioni seguiamo
     // sempre lo stesso procedimento, il TDD. Quindi vado a copiare le funzioni in test e lavoro su
     // quelle.
+    // Secondo quando stabilito dalla modalità TDD, bisogna impostare PRIMA i test per farli
+    // fallire e successivamente correggerne il funzionamento per arrivare al funzionamento
+    // corretto.
+    //
+    #[test]
+    fn case_insensitve() {
+        let query = "RuSt";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.
+Trust me.";
+        assert_eq!(
+            vec!["Rust:", "Trust me."],
+            search_case_insensitive(query, contents)
+        );
+    }
 }
 /* al momento della stesura di questo test la funzione search ANCORA NON ESISTE, perciò questo test
 * fallirà. Questo è proprio quanto sta alla base del test driven development.
@@ -103,4 +121,21 @@ pub fn search<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
         }
     }
     results
+}
+
+pub fn search_case_insensitive<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
+    // eseguo lo shadowing di query perché non avrò più bisogno del suo valore precedente.
+    // N.B. il metodo lowercase potrebbe essere impreciso nella conversione di un Unicode.
+    let query = query.to_lowercase();
+    // così come per il test precedente inizializzo uno vettore vuoto.
+    let mut result = Vec::new();
+    // vado a ciclare le linee del contenuto, utilizzando il metodo lines()
+    for line in content.lines() {
+        // dopo aver convertito query in minuscolo, faccio lo stesso con line, prima di verificare
+        // se QUELLA linea contiene la query ricercata.
+        if line.to_lowercase().contains(&query) {
+            result.push(line);
+        }
+    }
+    result
 }

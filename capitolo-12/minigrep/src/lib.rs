@@ -1,10 +1,12 @@
 // lib.rs
+use std::env;
 use std::error::Error;
 use std::fs;
 
 pub struct Config {
     pub query: String,
     pub file_path: String,
+    pub ignore_case: bool,
 }
 
 // implemento il costruttore --> invocando Config::new(&args) vado a inizializzare automaticamente
@@ -27,7 +29,13 @@ impl Config {
         let query = args[1].clone();
         let file_path = args[2].clone();
 
-        Ok(Config { query, file_path })
+        let ignore_case = env::var("IGNORE_CASE").is_ok();
+
+        Ok(Config {
+            query,
+            file_path,
+            ignore_case,
+        })
     }
 }
 // ho scelto di clonare gli elementi di args perché è complicato gestire il lifetime delle
@@ -56,7 +64,17 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // valore.
     // Dopo aver verificato che tutti i test sono andati a buon fine posso integrare la funzione
     // search nella funzione run().
-    for line in search(&config.query, &contents) {
+    // for line in search(&config.query, &contents) {
+    //     println!("{line}");
+    // }
+
+    let result = if config.ignore_case {
+        search_case_insensitive(&config.query, &contents)
+    } else {
+        search(&config.query, &contents)
+    };
+
+    for line in result {
         println!("{line}");
     }
     Ok(())

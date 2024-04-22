@@ -23,7 +23,9 @@ fn main() {
     // non trovandola. Questo perché build è una funzione associata PROPRIA DELLA STRUCT Config,
     // che abbiamo richiamato con il primo use.
     let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Problema nel parsing degli argomenti: {err}");
+        //println!("Problema nel parsing degli argomenti: {err}");
+        // passo l'output degli errori dallo standard output all'error output
+        eprintln!("Problema nel parsing degli argomenti: {err}");
         process::exit(1);
     });
     // stampo le due stringhe "di benvenuto" prima di iniziare la ricerca
@@ -39,7 +41,8 @@ fn main() {
     // Ci viene in aiuto il costrutto if let che consente di gestire l'errore nel caso in cui si
     // presenti. Ragionamento in logica negativa.
     if let Err(e) = minigrep::run(config) {
-        println!("Errore nell'applicazione: {e}");
+        // passo l'output degli errori dallo standard output all'error output
+        eprintln!("Errore nell'applicazione: {e}");
         process::exit(1);
     }
 }

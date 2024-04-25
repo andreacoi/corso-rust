@@ -46,6 +46,8 @@ impl Inventory {
     // ShirtColor
     fn giveaway(&self, user_preference: Option<ShirtColor>) -> ShirtColor {
         // ritorno user_preference con unwrap_or_else
+        // Le pipe indicano una closure, tra le pipe vanno inseriti gli argomenti della closure,
+        // qualora ne abbia.
         user_preference.unwrap_or_else(|| self.most_stocked())
     }
     // argomenti di most_stocked:

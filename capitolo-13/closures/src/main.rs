@@ -83,4 +83,17 @@ fn main() {
         thread::sleep(Duration::from_secs(2));
         num
     };
+    // classico esempio di una closure base.
+    // 1. si specifica una variabile con il let come una normalissima dichiarazione di variabile
+    // 2. SUBITO DOPO L'UGUALE si inserisce l'espressione da valutare. Senza parentesi se solo una
+    //    riga, con le parentesi se più di una riga;
+    // 3. Per il callback è possibile utilizzare il nome della variabile seguito dalle parentesi,
+    //    esattamente come ci si comporta con il callback di una funzione normale.
+    // 4. Se la funzione o l'espressione da valutare deve accettare degli argomenti questi vanno
+    //    indicati tra le pipe.
+    let gino = || println!("Ciao sono gino");
+    //  TEST DI SCRITTURA DI UNA CLOSURE CHE ACCETTA ARGOMENTI.
+    let pino = |cognome| println!("Ciao sono pino, {cognome}");
+    pino("sballo");
+    gino()
 }

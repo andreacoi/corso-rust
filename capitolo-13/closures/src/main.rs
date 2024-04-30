@@ -1,3 +1,5 @@
+use std::{thread, time::Duration};
+
 // 13.1 Le closure
 // Le closure sono delle funzioni anonime che possono "salvate" in una variabile o passate come
 // argomenti di una funzione. La closure può essere creata in un punto del codice e poi può esser
@@ -70,4 +72,15 @@ impl Inventory {
         }
     }
 }
-fn main() {}
+fn main() {
+    // num è l'argomento della closure, infatti viene indicato tra le pipe.
+    // questo è un test di scrittura per esteso della closure, infatti ho specificato anche il tipo
+    // di ritorno. N.B. Questa sintassi è corretta ed è formalmente valida. Tuttavia non è
+    // necessaria perché le closure sono in grado di praticare inferenza per quasi tutti i tipi di
+    // variabile.
+    let expensive_closure = |num: u32| -> u32 {
+        println!("Calcolo eseguito molto lentamente...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    };
+}

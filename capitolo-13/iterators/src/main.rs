@@ -24,4 +24,8 @@ fn main() {
     // Il metodo map() produce un altro iteratore, a partire da un iteratore iniziale. Si dice che
     // metodi come map() cambiano alcuni aspetti dell'iteratore iniziale, senza consumarlo.
     // Ecco un esempio inutile, perché non produce nessun output.
+    let v2 = vec![3, 4, 5];
+    // questa specifica sintassi rende inutile il codice perché in Rust gli iteratori sono "pigri"
+    // e questo codice non viene mai utilizzato.
+    let v3 = v2.iter().map(|x| x + 1);
 }

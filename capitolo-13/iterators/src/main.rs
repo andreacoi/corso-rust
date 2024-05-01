@@ -13,6 +13,8 @@ fn main() {
     // suo termine e i vari step.
     // Es.
     for val in v1_iter {
+        // ATTENZIONE - ad ogni giro del ciclo for, l'iteratore viene decrementato di 1, quindi si
+        // avvicina alla fine dei cicli.
         println!("Elemento: {}", val);
     }
 }

@@ -9,4 +9,10 @@ fn main() {
     // con il metodo iter applicato su v1 si crea un iteratore.
     // N.B. Al momento in cui viene creato, l'iteratore NON consuma cicli.
     let v1_iter = v1.iter();
+    // Avendo creato l'iteratore posso usare un ciclo for per scorrere i suoi elementi e gestire il
+    // suo termine e i vari step.
+    // Es.
+    for val in v1_iter {
+        println!("Elemento: {}", val);
+    }
 }

@@ -27,5 +27,5 @@ fn main() {
     let v2 = vec![3, 4, 5];
     // questa specifica sintassi rende inutile il codice perché in Rust gli iteratori sono "pigri"
     // e questo codice non viene mai utilizzato.
-    let v3 = v2.iter().map(|x| x + 1);
+    v2.iter().map(|x| x + 1);
 }

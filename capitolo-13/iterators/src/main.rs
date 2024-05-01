@@ -16,5 +16,12 @@ fn main() {
         // ATTENZIONE - ad ogni giro del ciclo for, l'iteratore viene decrementato di 1, quindi si
         // avvicina alla fine dei cicli.
         println!("Elemento: {}", val);
+        // ATTENZIONE - il ciclo for non consuma l'iteratore perché dietro le quinte il loop rende
+        // mut l'elemento v1_iter.
+        // Nel file src/lib.rs ho inserito un esempio di metodo che consuma un iteratore.
     }
+    // 13.2.3 Metodi che producono altri iteratori
+    // Il metodo map() produce un altro iteratore, a partire da un iteratore iniziale. Si dice che
+    // metodi come map() cambiano alcuni aspetti dell'iteratore iniziale, senza consumarlo.
+    // Ecco un esempio inutile, perché non produce nessun output.
 }

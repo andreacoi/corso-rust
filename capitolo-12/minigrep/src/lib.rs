@@ -26,6 +26,14 @@ impl Config {
         if args.len() < 3 {
             return Err("Devi dichiarare almeno tre argomenti...");
         }
+        // Riscrittura con nozioni dal capitolo 13
+        // al momento della stesura di questo codice abbiamo optato per l'utilizzo di clone, anche
+        // se DELIBERATAMENTE non ottimizzato. Abbiamo scelto di utilizzare il metodo clone, perché
+        // abbiamo una slice di Stringhe, ma questa funzione, la funzione build, non ha il
+        // "possesso" di args. Abbiamo quindi scelto, per evitare problemi con il borrow checker di
+        // utilizzare il metodo clone. Così la funzione build ha il possesso di query e file_path
+        // che sono entrambi delle clonazioni rispettivamente di args[1] e di args[2].
+        //
         let query = args[1].clone();
         let file_path = args[2].clone();
 

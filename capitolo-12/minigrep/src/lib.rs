@@ -21,11 +21,14 @@ pub struct Config {
 * funzioni che NON POSSONO FALLIRE. Riscrivo quindi la signature di new, che diventerà build.
 */
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        //verifica che gli argomenti siano > 3 prima di eseguire il programma.
-        if args.len() < 3 {
-            return Err("Devi dichiarare almeno tre argomenti...");
-        }
+    // modifico l'argomento di build, adesso args è un generic che implementa il trait Iterator.
+    // questa sintassi significa che:
+    // ARGS PUÒ ESSERE QUALSIASI TIPO CHE PERÒ(!!!) IMPLEMENTI UN TIPO ITERATORE E RITORNI
+    // NECESSARIAMENTE UN OGGETTO STRINGA.
+    pub fn build(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
+        // rimuovo il check del numero degli argomenti perché lo gestirò con delle Option.
+        // utilizzo args.next() perché l'argomento "con indice 0" è il nome dell'applicazione.
+        args.next();
         // Riscrittura con nozioni dal capitolo 13
         // al momento della stesura di questo codice abbiamo optato per l'utilizzo di clone, anche
         // se DELIBERATAMENTE non ottimizzato. Abbiamo scelto di utilizzare il metodo clone, perché
@@ -34,9 +37,20 @@ impl Config {
         // utilizzare il metodo clone. Così la funzione build ha il possesso di query e file_path
         // che sono entrambi delle clonazioni rispettivamente di args[1] e di args[2].
         //
-        let query = args[1].clone();
-        let file_path = args[2].clone();
+        //query e file path li ricavo tramite delle Option, utilizzando il costrutto match.
+        // let query = args[1].clone();
+        // let file_path = args[2].clone();
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Non hai specificato una stringa da cercare."),
+        };
 
+        let file_path = match args.next() {
+            Some(arg) => arg,
+            None => {
+                return Err("Non riesco a trovare il file che cerchi nel percorso specificato.")
+            }
+        };
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
         Ok(Config {

@@ -11,7 +11,6 @@ use minigrep::Config;
 use std::env;
 use std::process;
 fn main() {
-    let args: Vec<String> = env::args().collect();
     // la funzione collect crea un iteratore, una collezione di oggetti (di tipo String),
     // iterabile.
     // Per salvare gli args da cli è bene tenere a mente una cosa:
@@ -22,7 +21,7 @@ fn main() {
     // appoggio alle funzioni associate) il sistema cercherà la funzione build in tutto lo scope
     // non trovandola. Questo perché build è una funzione associata PROPRIA DELLA STRUCT Config,
     // che abbiamo richiamato con il primo use.
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    let config = Config::build(env::args()).unwrap_or_else(|err| {
         //println!("Problema nel parsing degli argomenti: {err}");
         // passo l'output degli errori dallo standard output all'error output
         eprintln!("Problema nel parsing degli argomenti: {err}");

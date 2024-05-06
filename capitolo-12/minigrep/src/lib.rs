@@ -199,6 +199,7 @@ pub fn search<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
 pub fn search_case_insensitive<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
     // eseguo lo shadowing di query perché non avrò più bisogno del suo valore precedente.
     // N.B. il metodo lowercase potrebbe essere impreciso nella conversione di un Unicode.
+    /*
     let query = query.to_lowercase();
     // così come per il test precedente inizializzo uno vettore vuoto.
     let mut results = Vec::new();
@@ -210,5 +211,21 @@ pub fn search_case_insensitive<'a>(query: &'a str, content: &'a str) -> Vec<&'a 
             results.push(line);
         }
     }
-    results
+    results */
+    // refactoring funzione search_case_insensitive.
+    // inizio SEMPRE CON lo shadowing di query.
+    let query = query.to_lowercase();
+    // allo stesso modo di search:
+    // - lines - come sopra - iteratore;
+    // - filter - come sopra, metodo che crea un iteratore che utilizza una chiusura per determinare se un elemento deve essere prodotto.
+    // Dato un elemento la chiusura deve restituire true o false. L'iteratore ritornato produrrà solo gli elementi per i quali la chiusura restituisce true.
+    // - converto line in lowercase (in questo modo i case delle singole linee e quello della query sono entrambi minuscoli) e verifico (passandolo alla closure) che line.to_lowercase contenga una slice di query.
+    // Utilizzo la & perché query dopo la sua trasformazione in lowercase, è diventata una Stringa.
+    // Lo stesso discorso vale per line. Viene da sè che il confronto tra due stringhe restituisca
+    // una stringa. Il fatto di utilizzare la & ci consente di ottenere come risultato una slice.
+    // collect() crea, come già detto sopra, un vettore con gli elementi accumulati.
+    content
+        .lines()
+        .filter(|line| line.to_lowercase().contains(&query))
+        .collect()
 }

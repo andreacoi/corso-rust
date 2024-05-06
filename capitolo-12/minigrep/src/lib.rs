@@ -156,15 +156,44 @@ Trust me.";
 
 pub fn search<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
     // crea un vettore che verrà popolato con i risultati della ricerca.
-    let mut results = Vec::new();
-    // inizia a iterare nelle linee di content utilizzando il metodo lines()
-    for line in content.lines() {
-        // fa qualcosa SE line contiene query - salvataggio nel vettore e successivo ritorno.
-        if line.contains(query) {
-            results.push(line)
+    /*
+    * Vecchia versione del metodo search.
+    * Anche questo può essere riscritto utilizzando le closure e gli iteratori.
+    * let mut results = Vec::new();
+        // inizia a iterare nelle linee di content utilizzando il metodo lines()
+        for line in content.lines() {
+            // fa qualcosa SE line contiene query - salvataggio nel vettore e successivo ritorno.
+            if line.contains(query) {
+                results.push(line)
+            }
         }
+        results
     }
-    results
+    * Questo metodo può essere ridotto ad usa sola riga, partendo da content.
+    */
+    content
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
+
+    // SPIEGAZIONE DI QUESTA SERIE DI METODI CONCATENATI
+    // Innanzitutto, tutti i metodi insistono su content. Quindi tutte le operazioni vengono
+    // effettuate su content. Questa serie di metodi ritorna un Vettore di slice, che è quanto
+    // richiesto dalla signature del metodo search. Il ritorno viene effettuato omettendo il punto
+    // e virgola alla fine dell'espressione. Il metodo collect, inoltre, garantisce che "la
+    // variabile" ritornata sia effettivamente una collezione di elementi.
+    // Questo per quanto concerne, la cosa generale.
+    // Scendendo nei particolari, analizzo i metodi:
+    // - lines() - è una funzione che consente di ottenere un iteratore, che itera sulle singole
+    // linee di una stringa, trattandole come slice.
+    // - filter() - colleziona dei risultati solo se soddisfano la condizione specificata tra
+    // parentesi.
+    // - |line| è una closure booleana che restitusce il risultato della funzione affianco. In
+    // particolare se line.contains(query) restituisce valore vero, line diventa la slice che
+    // soddisfa la condizione. Non appena viene popolata "line" filter agisce tenendo conto della
+    // linea corrente.
+    // - collect() - trasforma le slice in un vettore di slice, che è il tipo di ritorno richiesto
+    // dalla signature della funzione.
 }
 
 pub fn search_case_insensitive<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {

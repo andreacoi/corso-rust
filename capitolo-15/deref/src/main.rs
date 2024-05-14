@@ -17,4 +17,8 @@ fn main() {
     // L'operazione di deferenziazione consente di accedere al valore a cui punta un puntatore,
     // smart o grezzo che sia.
     assert_eq!(5, *y);
+    // N.B. Se provassi a comparare in questo modo:
+    // assert_eq!(5,y );
+    // otterrei un errore in fase di compilazione perché Rust mi avvisa che non è possibile
+    // comparare un numero con una reference a un numero.
 }

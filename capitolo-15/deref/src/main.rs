@@ -21,4 +21,11 @@ fn main() {
     // assert_eq!(5,y );
     // otterrei un errore in fase di compilazione perché Rust mi avvisa che non è possibile
     // comparare un numero con una reference a un numero.
+    //
+    // Box<T> può anche essere utilizzata come reference
+    // ecco lo stesso esempio, rivisto con l'utilizzo di Box.
+    let y = Box::new(x);
+    // ovviamente, vado anche qui a fare la comparazione:
+    assert_eq!(5, *y);
+    // si nota perfettamente che y utilizzata nel primo esempio è tatalmente identica a questa.
 }

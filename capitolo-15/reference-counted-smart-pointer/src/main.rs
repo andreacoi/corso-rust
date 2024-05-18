@@ -44,8 +44,8 @@
 */
 // anche se nel primo esempio non lo utilizzerò inizio ad inserire nel prelude Rc, in modo da
 // averlo pronto dopo, non appena mi servirà.
+use crate::List::{Cons, Nil};
 use std::rc::Rc;
-
 // dichiaro una enum List come tipo dati personale contenente una Cons List, il cui primo elemento
 // è un i32 e il secondo elemento è una Box contenente elementi di tipo List. Questa struttura dati
 // è ricorsiva perché la variante Cons contiene una Box che punta a List stessa.
@@ -55,5 +55,7 @@ enum List {
 }
 
 fn main() {
-    println!("Hello, world!");
+    let a = Cons(5, Box::new(Cons(10, Box::new(Nil))));
+    let b = Cons(3, Box::new(a));
+    let c = Cons(4, Box::new(a));
 }

@@ -51,4 +51,17 @@ fn main() {
     //
     // Con queste implementazioni sono stato in grado di eseguire del codice arbitrario prima
     // dell'utilizzo di drop.
+    // N.B. Benché sia impossibile utilizzare il drop trait in maniera volontaria da parte
+    // dell'utente (viene impedito da Rust per impedire casi di double free memory) Rust mette a
+    // disposizione std::mem::drop per effettuare la medesima operazione, con la differenza che il
+    // metodo drop() a differenza del trait viene utilizzato semplicemente per anticipare la fine
+    // del ciclo di vita di una variabile. Inoltre, è bene specificare che drop(), come metodo
+    // prende possesso della variabile sul quale viene eseguito, rendendo di fatto inutilizzabile
+    // la variabile dopo la chiamata.
+    // Specificando ancora: È una funzione della libreria standard che prende il possesso di un valore
+    // e lo fa uscire immediatamente dallo scope, chiamando così il metodo drop del trait Drop
+    // se definito per quel tipo.
+    // In sintesi: il trait Drop permette di definire una pulizia automatica personalizzata
+    // quando un oggetto esce dal suo scope, mentre la funzione std::mem::drop offre un modo per rilasciare
+    // esplicitamente una risorsa prima del tempo.
 }

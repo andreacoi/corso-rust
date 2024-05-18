@@ -42,6 +42,9 @@
 * Riporterò prima un esempio non funzionante e poi lo correggerò con la versione OK, utilizzando
 * Rc<T>.
 */
+// anche se nel primo esempio non lo utilizzerò inizio ad inserire nel prelude Rc, in modo da
+// averlo pronto dopo, non appena mi servirà.
+use std::rc::Rc;
 
 fn main() {
     println!("Hello, world!");

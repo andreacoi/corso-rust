@@ -46,6 +46,14 @@
 // averlo pronto dopo, non appena mi servirà.
 use std::rc::Rc;
 
+// dichiaro una enum List come tipo dati personale contenente una Cons List, il cui primo elemento
+// è un i32 e il secondo elemento è una Box contenente elementi di tipo List. Questa struttura dati
+// è ricorsiva perché la variante Cons contiene una Box che punta a List stessa.
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
+}
+
 fn main() {
     println!("Hello, world!");
 }

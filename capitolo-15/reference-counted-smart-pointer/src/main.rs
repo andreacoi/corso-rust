@@ -50,12 +50,25 @@ use std::rc::Rc;
 // è un i32 e il secondo elemento è una Box contenente elementi di tipo List. Questa struttura dati
 // è ricorsiva perché la variante Cons contiene una Box che punta a List stessa.
 enum List {
-    Cons(i32, Box<List>),
+    Cons(i32, Rc<List>),
     Nil,
 }
 
 fn main() {
+    /*
+    * Questo codice che trovi rimpiazzato giù non compila perché a cambia di proprietario quando
+    * viene associato alla Box nella variabile b.
+    *
     let a = Cons(5, Box::new(Cons(10, Box::new(Nil))));
     let b = Cons(3, Box::new(a));
     let c = Cons(4, Box::new(a));
+    *
+    * Però può essere riscritto utilizzando Rc<T>, in questo modo:
+    */
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let b = Cons(3, Rc::clone(&a));
+    let c = Cons(4, Rc::clone(&a));
+    // ogni volta che si utilizza clone, il contatore di riferimenti (in questo caso) ad a aumenta
+    // di 1. I dati non verranno cancellati finché il contatore non raggiungerà lo 0, o meglio fino
+    // a quando ci saranno 0 riferimenti al dato (a).
 }

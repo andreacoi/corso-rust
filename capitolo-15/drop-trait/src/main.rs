@@ -32,5 +32,23 @@ impl Drop for CustomSmartPointer {
 }
 
 fn main() {
-    println!("Hello, world!");
+    let c = CustomSmartPointer {
+        data: String::from("Stringa a caso 1"),
+    };
+    let d = CustomSmartPointer {
+        data: String::from("Stringa a caso 2"),
+    };
+    // ho inizializzato due custom smart pointer, in modo da vedere cosa succede al loro drop.
+    println!("Creati due custom Smart Pointer");
+    // fine dello scope
+    // Dopo questo limite dovrebbe essere invocata in maniera automatica la funzione drop che però
+    // sarà l'override di quella di default utilizzata in Rust. Questo perché esiste per questi due
+    // smart pointer una implementazione dedicata.
+    // Output:
+    // Creati due custom Smart Pointer
+    // Utilizzo drop per pulire l'heap dopo l'utilizzo della variabile Stringa a caso 2
+    // Utilizzo drop per pulire l'heap dopo l'utilizzo della variabile Stringa a caso 1
+    //
+    // Con queste implementazioni sono stato in grado di eseguire del codice arbitrario prima
+    // dell'utilizzo di drop.
 }

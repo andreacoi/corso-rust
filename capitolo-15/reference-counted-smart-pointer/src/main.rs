@@ -71,4 +71,5 @@ fn main() {
     // ogni volta che si utilizza clone, il contatore di riferimenti (in questo caso) ad a aumenta
     // di 1. I dati non verranno cancellati finché il contatore non raggiungerà lo 0, o meglio fino
     // a quando ci saranno 0 riferimenti al dato (a).
+    // TODO: VERIFICARE FUNZIONAMENTO SNIPPET 15.19 PAG.333. PAR. 15.4.2
 }

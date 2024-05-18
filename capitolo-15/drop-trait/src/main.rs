@@ -16,6 +16,21 @@
 * scope.
 * Scrivo un esempio dichiarando uno smart pointer custom.
 * */
+
+struct CustomSmartPointer {
+    data: String,
+}
+// implementazione di Drop customizzata. Riporta quello che deve avvenire all'atto di eseguire il
+// drop sulla struct CustomSmartPointer, in questo caso specifico stampo una stringa esplicativa.
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!(
+            "Utilizzo drop per pulire l'heap dopo l'utilizzo della variabile {}",
+            self.data
+        )
+    }
+}
+
 fn main() {
     println!("Hello, world!");
 }

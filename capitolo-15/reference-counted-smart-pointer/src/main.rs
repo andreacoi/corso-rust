@@ -66,10 +66,18 @@ fn main() {
     * Però può essere riscritto utilizzando Rc<T>, in questo modo:
     */
     let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    println!("conteggia cicli a = {}", Rc::strong_count(&a));
     let b = Cons(3, Rc::clone(&a));
-    let c = Cons(4, Rc::clone(&a));
+    println!("conteggia cicli b = {}", Rc::strong_count(&a));
+    {
+        let c = Cons(4, Rc::clone(&a));
+        println!("conteggia cicli c = {}", Rc::strong_count(&a));
+    }
+    println!(
+        "conteggia rif c dopo essere uscito dallo scope = {}",
+        Rc::strong_count(&a)
+    );
     // ogni volta che si utilizza clone, il contatore di riferimenti (in questo caso) ad a aumenta
     // di 1. I dati non verranno cancellati finché il contatore non raggiungerà lo 0, o meglio fino
     // a quando ci saranno 0 riferimenti al dato (a).
-    // TODO: VERIFICARE FUNZIONAMENTO SNIPPET 15.19 PAG.333. PAR. 15.4.2
 }
